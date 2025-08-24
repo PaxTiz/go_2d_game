@@ -24,7 +24,7 @@ func InitPlayer(textures utils.Textures) Player {
 
 // TODO: Character animation
 func (player *Player) HandleKeyboardEvents(delta float32, keyboardLayout utils.KeyboardLayout, debug bool) {
-	speed := float32(96)
+	speed := float32(150)
 
 	movement := player.Entity.Position
 

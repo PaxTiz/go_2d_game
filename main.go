@@ -26,12 +26,14 @@ func main() {
 
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()
+		rl.BeginMode2D(state.Camera.Camera)
 
 		rl.ClearBackground(rl.Black)
 
 		state.HandleKeyboardEvents()
 		state.Draw()
 
+		rl.EndMode2D()
 		rl.EndDrawing()
 	}
 }

@@ -15,6 +15,8 @@ type State struct {
 
 	Player *entities.Player
 
+	Camera *entities.Camera
+
 	Level *levels.Level
 
 	KeyboardLayout *utils.KeyboardLayout
@@ -23,6 +25,7 @@ type State struct {
 func InitState(keyboardLayout utils.KeyboardLayout, debug bool) State {
 	textures := utils.InitTextures()
 	player := entities.InitPlayer(textures)
+	camera := entities.InitCamera(player)
 
 	level := levels.InitLevelFromDirectory(textures, "./resources/levels/home")
 
@@ -32,13 +35,15 @@ func InitState(keyboardLayout utils.KeyboardLayout, debug bool) State {
 		Player:         &player,
 		Level:          &level,
 		KeyboardLayout: &keyboardLayout,
+		Camera:         &camera,
 	}
 }
 
-func (state *State) HandleKeyboardEvents() {
+func (state State) HandleKeyboardEvents() {
 	delta := rl.GetFrameTime()
 
 	state.Player.HandleKeyboardEvents(delta, *state.KeyboardLayout, state.Debug)
+	state.Camera.SyncPositionWithPlayer(*state.Player)
 }
 
 func (state State) Draw() {
