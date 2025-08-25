@@ -40,11 +40,12 @@ func InitState(keyboardLayout utils.KeyboardLayout, debug bool) State {
 	}
 }
 
-func (state State) HandleKeyboardEvents() {
+func (state *State) HandleKeyboardEvents() {
 	delta := rl.GetFrameTime()
 
 	state.Player.HandleKeyboardEvents(delta, *state.KeyboardLayout, state.Debug)
 	state.Camera.SyncPositionWithPlayer(*state.Player)
+	state.Camera.Zoom(*state.KeyboardLayout, state.Debug)
 }
 
 func (state State) Draw() {

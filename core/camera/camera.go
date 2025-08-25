@@ -27,3 +27,13 @@ func InitCamera(player entities.Player) Camera {
 func (camera *Camera) SyncPositionWithPlayer(player entities.Player) {
 	camera.Camera.Target = player.Entity.Position
 }
+
+func (camera *Camera) Zoom(keyboardLayout utils.KeyboardLayout, debug bool) {
+	if debug {
+		if camera.Camera.Zoom < 5 && rl.IsKeyDown(keyboardLayout.Modifier) && rl.IsKeyDown(keyboardLayout.Plus) {
+			camera.Camera.Zoom += 0.1
+		} else if camera.Camera.Zoom > 0.5 && rl.IsKeyDown(keyboardLayout.Modifier) && rl.IsKeyDown(keyboardLayout.Minus) {
+			camera.Camera.Zoom -= 0.1
+		}
+	}
+}
