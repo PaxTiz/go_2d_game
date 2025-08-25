@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"vcernuta/raylib/core/state"
 	"vcernuta/raylib/utils"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
@@ -21,7 +22,7 @@ func main() {
 
 	keyboardLayout := utils.InitKeyboardLayoutAzerty()
 
-	state := InitState(keyboardLayout, debug)
+	state := state.InitState(keyboardLayout, debug)
 	defer state.Textures.Unload()
 
 	for !rl.WindowShouldClose() {

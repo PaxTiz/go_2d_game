@@ -1,7 +1,7 @@
 package levels
 
 import (
-	"vcernuta/raylib/entities"
+	"vcernuta/raylib/core/entities"
 	"vcernuta/raylib/utils"
 
 	rl "github.com/gen2brain/raylib-go/raylib"

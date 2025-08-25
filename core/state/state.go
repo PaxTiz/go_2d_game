@@ -1,8 +1,9 @@
-package main
+package state
 
 import (
-	"vcernuta/raylib/entities"
-	"vcernuta/raylib/levels"
+	"vcernuta/raylib/core/camera"
+	"vcernuta/raylib/core/entities"
+	"vcernuta/raylib/core/levels"
 	"vcernuta/raylib/utils"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
@@ -15,7 +16,7 @@ type State struct {
 
 	Player *entities.Player
 
-	Camera *entities.Camera
+	Camera *camera.Camera
 
 	Level *levels.Level
 
@@ -25,7 +26,7 @@ type State struct {
 func InitState(keyboardLayout utils.KeyboardLayout, debug bool) State {
 	textures := utils.InitTextures()
 	player := entities.InitPlayer(textures)
-	camera := entities.InitCamera(player)
+	camera := camera.InitCamera(player)
 
 	level := levels.InitLevelFromDirectory(textures, "./resources/levels/home")
 
