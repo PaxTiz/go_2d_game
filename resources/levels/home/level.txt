@@ -1,4 +1,4 @@
-# X Y texture transparent layer
+# X Y texture solid layer
 0 0 dirt_1 1 1
 1 0 dirt_2 1 1
 2 0 dirt_1 1 1

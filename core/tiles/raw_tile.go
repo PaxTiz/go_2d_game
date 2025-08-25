@@ -9,11 +9,11 @@ import (
 )
 
 type RawTile struct {
-	X           int
-	Y           int
-	Layer       int
-	Transparent int
-	Texture     string
+	X       int
+	Y       int
+	Layer   int
+	Solid   int
+	Texture string
 }
 
 func InitFromString(line string) RawTile {
@@ -31,7 +31,7 @@ func InitFromString(line string) RawTile {
 		log.Fatalf("Could not parse %s to integer", parts[1])
 	}
 
-	transparent, err := strconv.Atoi(parts[3])
+	solid, err := strconv.Atoi(parts[3])
 	if err != nil {
 		log.Fatalf("Could not parse %s to integer", parts[3])
 	}
@@ -42,10 +42,10 @@ func InitFromString(line string) RawTile {
 	}
 
 	return RawTile{
-		X:           x,
-		Y:           y,
-		Layer:       layer,
-		Transparent: transparent,
-		Texture:     parts[2],
+		X:       x,
+		Y:       y,
+		Layer:   layer,
+		Solid:   solid,
+		Texture: parts[2],
 	}
 }

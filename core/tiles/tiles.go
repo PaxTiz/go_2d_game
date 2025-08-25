@@ -8,9 +8,9 @@ import (
 )
 
 type Tile struct {
-	Entity      entities.Entity
-	Layer       int
-	Transparent bool
+	Entity entities.Entity
+	Layer  int
+	Solid  bool
 }
 
 func InitFromRawTile(tile RawTile, textures utils.Textures) Tile {
@@ -28,9 +28,9 @@ func InitFromRawTile(tile RawTile, textures utils.Textures) Tile {
 	)
 
 	return Tile{
-		Entity:      entity,
-		Layer:       tile.Layer,
-		Transparent: tile.Transparent == 0,
+		Entity: entity,
+		Layer:  tile.Layer,
+		Solid:  tile.Solid == 1,
 	}
 }
 
@@ -53,5 +53,9 @@ func (tile Tile) Draw(debug bool) {
 
 	if debug {
 		rl.DrawRectangleLines(int32(destination.X), int32(destination.Y), int32(destination.Width), int32(destination.Height), rl.Red)
+
+		if tile.Solid {
+			rl.DrawRectangleRec(destination, rl.ColorAlpha(rl.Red, 0.4))
+		}
 	}
 }

@@ -9,6 +9,8 @@ import (
 
 type Player struct {
 	Entity Entity
+
+	CollisionRect rl.Rectangle
 }
 
 func InitPlayer(textures utils.Textures) Player {
@@ -18,6 +20,12 @@ func InitPlayer(textures utils.Textures) Player {
 			Size:                rl.Vector2{X: 16, Y: 32},
 			Position:            rl.Vector2{X: utils.WINDOW_WIDTH/2 - 16*2, Y: utils.WINDOW_HEIGHT/2 - 32*2},
 			SpritesheetPosition: rl.Vector2{X: 0, Y: 0},
+		},
+		CollisionRect: rl.Rectangle{
+			X:      utils.WINDOW_WIDTH/2 - 16*2,
+			Y:      (utils.WINDOW_HEIGHT/2 - 16*2),
+			Width:  32,
+			Height: 32,
 		},
 	}
 }
@@ -33,7 +41,11 @@ func (player *Player) HandleKeyboardEvents(delta float32, keyboardLayout utils.K
 	movement.Y -= handleMovement(keyboardLayout.PlayerTop, speed, delta, debug)
 	movement.Y += handleMovement(keyboardLayout.PlayerBottom, speed, delta, debug)
 
-	player.Entity.Position = movement
+	if player.CheckCollisions(movement) {
+		player.Entity.Position = movement
+		player.CollisionRect.X = movement.X
+		player.CollisionRect.Y = movement.Y + player.Entity.Size.Y
+	}
 }
 
 func (player Player) Draw(debug bool) {
@@ -55,7 +67,15 @@ func (player Player) Draw(debug bool) {
 
 	if debug {
 		rl.DrawRectangleLines(int32(destination.X), int32(destination.Y), int32(destination.Width), int32(destination.Height), rl.Blue)
+		rl.DrawRectangleRec(player.CollisionRect, rl.ColorAlpha(rl.Blue, 0.4))
 	}
+}
+
+func (player Player) CheckCollisions(position rl.Vector2) bool {
+	// We need to use the bottom of the player texture for checking collisions
+	utils.Dummy(player.CollisionRect)
+
+	return true
 }
 
 func handleMovement(key int32, speed float32, delta float32, debug bool) float32 {
