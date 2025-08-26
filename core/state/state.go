@@ -2,7 +2,7 @@ package state
 
 import (
 	"vcernuta/raylib/core/camera"
-	"vcernuta/raylib/core/entities"
+	"vcernuta/raylib/core/entities/player"
 	"vcernuta/raylib/core/levels"
 	"vcernuta/raylib/utils"
 
@@ -14,7 +14,7 @@ type State struct {
 
 	Textures *utils.Textures
 
-	Player *entities.Player
+	Player *player.Player
 
 	Camera *camera.Camera
 
@@ -25,7 +25,7 @@ type State struct {
 
 func InitState(keyboardLayout utils.KeyboardLayout, debug bool) State {
 	textures := utils.InitTextures()
-	player := entities.InitPlayer(textures)
+	player := player.InitPlayer(textures)
 	camera := camera.InitCamera(player)
 
 	level := levels.InitLevelFromDirectory(textures, "./resources/levels/home")
@@ -43,7 +43,7 @@ func InitState(keyboardLayout utils.KeyboardLayout, debug bool) State {
 func (state *State) HandleKeyboardEvents() {
 	delta := rl.GetFrameTime()
 
-	state.Player.HandleKeyboardEvents(delta, *state.KeyboardLayout, state.Debug)
+	state.Player.HandleKeyboardEvents(delta, *state.Level, *state.KeyboardLayout, state.Debug)
 	state.Camera.SyncPositionWithPlayer(*state.Player)
 	state.Camera.Zoom(*state.KeyboardLayout, state.Debug)
 }

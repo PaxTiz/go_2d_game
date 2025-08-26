@@ -1,21 +1,23 @@
-package entities
+package player
 
 import (
 	"log"
+	"vcernuta/raylib/core/entities"
+	"vcernuta/raylib/core/levels"
 	"vcernuta/raylib/utils"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
 type Player struct {
-	Entity Entity
+	Entity entities.Entity
 
 	CollisionRect rl.Rectangle
 }
 
 func InitPlayer(textures utils.Textures) Player {
 	return Player{
-		Entity: Entity{
+		Entity: entities.Entity{
 			Texture:             textures.PlayerSpritesheet,
 			Size:                rl.Vector2{X: 16, Y: 32},
 			Position:            rl.Vector2{X: utils.WINDOW_WIDTH/2 - 16*2, Y: utils.WINDOW_HEIGHT/2 - 32*2},
@@ -30,18 +32,20 @@ func InitPlayer(textures utils.Textures) Player {
 	}
 }
 
+// TODO: Snap player position to nearest tile if position if not perfectly aligned
 // TODO: Character animation
-func (player *Player) HandleKeyboardEvents(delta float32, keyboardLayout utils.KeyboardLayout, debug bool) {
+func (player *Player) HandleKeyboardEvents(delta float32, level levels.Level, keyboardLayout utils.KeyboardLayout, debug bool) {
 	speed := float32(150)
+	displacement := speed * delta
 
 	movement := player.Entity.Position
 
-	movement.X -= handleMovement(keyboardLayout.PlayerLeft, speed, delta, debug)
-	movement.X += handleMovement(keyboardLayout.PlayerRight, speed, delta, debug)
-	movement.Y -= handleMovement(keyboardLayout.PlayerTop, speed, delta, debug)
-	movement.Y += handleMovement(keyboardLayout.PlayerBottom, speed, delta, debug)
+	movement.X -= _handleMovement(keyboardLayout.PlayerLeft, displacement, debug)
+	movement.X += _handleMovement(keyboardLayout.PlayerRight, displacement, debug)
+	movement.Y -= _handleMovement(keyboardLayout.PlayerTop, displacement, debug)
+	movement.Y += _handleMovement(keyboardLayout.PlayerBottom, displacement, debug)
 
-	if player.CheckCollisions(movement) {
+	if player.CheckCollisions(level, movement) {
 		player.Entity.Position = movement
 		player.CollisionRect.X = movement.X
 		player.CollisionRect.Y = movement.Y + player.Entity.Size.Y
@@ -71,20 +75,18 @@ func (player Player) Draw(debug bool) {
 	}
 }
 
-func (player Player) CheckCollisions(position rl.Vector2) bool {
-	// We need to use the bottom of the player texture for checking collisions
-	utils.Dummy(player.CollisionRect)
-
-	return true
+func (player Player) CheckCollisions(level levels.Level, position rl.Vector2) bool {
+	tiles := level.FindSolidTilesMatchingDirection(rl.NewVector2(position.X, position.Y+32))
+	return len(tiles) == 0
 }
 
-func handleMovement(key int32, speed float32, delta float32, debug bool) float32 {
+func _handleMovement(key int32, displacement float32, debug bool) float32 {
 	if rl.IsKeyDown(key) {
 		if debug {
-			log.Printf("Key pressed : %s (move to top of %v)", utils.UnicodePointToLetter(key), speed*delta)
+			log.Printf("Key pressed : %s (move to top of %v)", utils.UnicodePointToLetter(key), displacement)
 		}
 
-		return speed * delta
+		return displacement
 	}
 
 	return 0

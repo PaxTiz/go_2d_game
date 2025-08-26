@@ -5,6 +5,7 @@ import (
 	"vcernuta/raylib/core/tiles"
 	"vcernuta/raylib/utils"
 
+	rl "github.com/gen2brain/raylib-go/raylib"
 	"github.com/samber/lo"
 )
 
@@ -39,4 +40,18 @@ func (level Level) Draw(debug bool) {
 			element.Draw(debug)
 		}
 	}
+}
+
+func (level Level) FindSolidTilesMatchingDirection(direction rl.Vector2) []tiles.Tile {
+	tiles := []tiles.Tile{}
+
+	for _, tile := range level.Tiles {
+		rect := rl.NewRectangle(direction.X, direction.Y, 32, 32)
+
+		if tile.Solid && rl.CheckCollisionRecs(tile.Entity.AsRect(), rect) {
+			tiles = append(tiles, tile)
+		}
+	}
+
+	return tiles
 }
