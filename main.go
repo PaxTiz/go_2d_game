@@ -15,7 +15,7 @@ func main() {
 		debug = true
 	}
 
-	rl.SetTargetFPS(60)
+	rl.SetConfigFlags(rl.FlagVsyncHint)
 
 	rl.InitWindow(utils.WINDOW_WIDTH, utils.WINDOW_HEIGHT, "Welcome from Raylib !")
 	defer rl.CloseWindow()

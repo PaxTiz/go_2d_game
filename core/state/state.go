@@ -51,4 +51,13 @@ func (state *State) HandleKeyboardEvents() {
 func (state State) Draw() {
 	state.Level.Draw(state.Debug)
 	state.Player.Draw(state.Debug)
+
+	state.DebugFPS()
+}
+
+func (state State) DebugFPS() {
+	if state.Debug {
+		rl.ClearColor(rl.White.R, rl.White.G, rl.White.B, 1)
+		rl.DrawFPS(4, 4)
+	}
 }
