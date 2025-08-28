@@ -20,11 +20,11 @@ func InitPlayer(textures utils.Textures) Player {
 		Entity: entities.Entity{
 			Texture:             textures.PlayerSpritesheet,
 			Size:                rl.Vector2{X: 16, Y: 32},
-			Position:            rl.Vector2{X: utils.WINDOW_WIDTH/2 - 16*2, Y: utils.WINDOW_HEIGHT/2 - 32*2},
+			Position:            rl.Vector2{X: utils.WINDOW_WIDTH/2 - 16, Y: utils.WINDOW_HEIGHT/2 - 32*2},
 			SpritesheetPosition: rl.Vector2{X: 0, Y: 0},
 		},
 		CollisionRect: rl.Rectangle{
-			X:      utils.WINDOW_WIDTH/2 - 16*2,
+			X:      utils.WINDOW_WIDTH/2 - 16,
 			Y:      (utils.WINDOW_HEIGHT/2 - 16*2),
 			Width:  32,
 			Height: 32,
@@ -45,9 +45,12 @@ func (player *Player) HandleKeyboardEvents(delta float32, level levels.Level, ke
 	movement.Y -= _handleMovement(keyboardLayout.PlayerTop, displacement, debug)
 	movement.Y += _handleMovement(keyboardLayout.PlayerBottom, displacement, debug)
 
-	if player.CheckCollisions(level, movement) {
-		player.Entity.Position = movement
+	if player.CheckCollisionsHorizontally(level, movement) {
+		player.Entity.Position.X = movement.X
 		player.CollisionRect.X = movement.X
+	}
+	if player.CheckCollisionsVertically(level, movement) {
+		player.Entity.Position.Y = movement.Y
 		player.CollisionRect.Y = movement.Y + player.Entity.Size.Y
 	}
 }
@@ -75,8 +78,13 @@ func (player Player) Draw(debug bool) {
 	}
 }
 
-func (player Player) CheckCollisions(level levels.Level, position rl.Vector2) bool {
-	tiles := level.FindSolidTilesMatchingDirection(rl.NewVector2(position.X, position.Y+32))
+func (player Player) CheckCollisionsHorizontally(level levels.Level, position rl.Vector2) bool {
+	tiles := level.FindSolidTilesMatchingDirection(rl.NewVector2(position.X, player.Entity.Position.Y+32))
+	return len(tiles) == 0
+}
+
+func (player Player) CheckCollisionsVertically(level levels.Level, position rl.Vector2) bool {
+	tiles := level.FindSolidTilesMatchingDirection(rl.NewVector2(player.Entity.Position.X, position.Y+32))
 	return len(tiles) == 0
 }
 
