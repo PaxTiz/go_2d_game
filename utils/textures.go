@@ -49,6 +49,23 @@ func TexturesSpreadsheetPositions() map[string]rl.Vector2 {
 		// Green tree
 		"tree_green_pic_top":    {X: float32(SpreadsheetTexturePosition(17)), Y: float32(SpreadsheetTexturePosition(11))},
 		"tree_green_pic_bottom": {X: float32(SpreadsheetTexturePosition(17)), Y: float32(SpreadsheetTexturePosition(12))},
+
+		// Home walls
+		"home_wall_white_bottom_left_corner":  {X: float32(SpreadsheetTexturePosition(15)), Y: float32(SpreadsheetTexturePosition(16))},
+		"home_wall_white_bottom_right_corner": {X: float32(SpreadsheetTexturePosition(17)), Y: float32(SpreadsheetTexturePosition(16))},
+		"home_wall_white_full":                {X: float32(SpreadsheetTexturePosition(19)), Y: float32(SpreadsheetTexturePosition(16))},
+
+		// Home roofs
+		"home_roof_wood_top_left_corner":     {X: float32(SpreadsheetTexturePosition(21)), Y: float32(SpreadsheetTexturePosition(22))},
+		"home_roof_wood_top_right_corner":    {X: float32(SpreadsheetTexturePosition(22)), Y: float32(SpreadsheetTexturePosition(22))},
+		"home_roof_wood_left":                {X: float32(SpreadsheetTexturePosition(21)), Y: float32(SpreadsheetTexturePosition(23))},
+		"home_roof_wood_right":               {X: float32(SpreadsheetTexturePosition(22)), Y: float32(SpreadsheetTexturePosition(23))},
+		"home_roof_wood_bottom_left_corner":  {X: float32(SpreadsheetTexturePosition(21)), Y: float32(SpreadsheetTexturePosition(24))},
+		"home_roof_wood_bottom_right_corner": {X: float32(SpreadsheetTexturePosition(22)), Y: float32(SpreadsheetTexturePosition(24))},
+
+		// Doors
+		"door_rounded_black_background_left":  {X: float32(SpreadsheetTexturePosition(29)), Y: float32(SpreadsheetTexturePosition(9))},
+		"door_rounded_black_background_right": {X: float32(SpreadsheetTexturePosition(30)), Y: float32(SpreadsheetTexturePosition(9))},
 	}
 }
 

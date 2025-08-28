@@ -20,7 +20,7 @@ func InitPlayer(textures utils.Textures) Player {
 		Entity: entities.Entity{
 			Texture:             textures.PlayerSpritesheet,
 			Size:                rl.Vector2{X: 16, Y: 32},
-			Position:            rl.Vector2{X: utils.WINDOW_WIDTH/2 - 16, Y: utils.WINDOW_HEIGHT/2 - 32*2},
+			Position:            rl.Vector2{X: utils.WINDOW_WIDTH/2 - 16, Y: utils.WINDOW_HEIGHT/4 - 32*2},
 			SpritesheetPosition: rl.Vector2{X: 0, Y: 0},
 		},
 		CollisionRect: rl.Rectangle{
