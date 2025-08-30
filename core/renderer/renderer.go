@@ -12,10 +12,6 @@ type EntityData struct {
 	Size     rl.Vector2
 }
 
-type Entity struct {
-	Data EntityData
-}
-
 type RenderableObject interface {
 	GetEntityData() EntityData
 
