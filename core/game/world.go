@@ -12,12 +12,11 @@ type World struct {
 	Tiles []Tile
 }
 
-func InitLevelFromDirectory(game *Game, textures utils.Textures, path string) World {
-	level := utils.LoadLevelAsArray(path)
+func InitWorldFromDirectory(game *Game, textures utils.Textures, path string) World {
+	level := loader.LoadLevelAsArray(path)
 
 	levelTiles := []Tile{}
-	for _, line := range level {
-		rawTile := loader.InitFromString(line)
+	for _, rawTile := range level {
 		tile := InitTileFromRawTile(game, rawTile, textures)
 		levelTiles = append(levelTiles, tile)
 	}

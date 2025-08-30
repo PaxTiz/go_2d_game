@@ -33,7 +33,7 @@ func InitGame(keyboardLayout utils.KeyboardLayout, debug bool) Game {
 
 	player.Id = renderer.AddObject(player)
 
-	level := InitLevelFromDirectory(&game, textures, "./resources/levels/home")
+	level := InitWorldFromDirectory(&game, textures, "./resources/levels/home")
 	for _, tile := range level.Tiles {
 		tile.Id = renderer.AddObject(tile)
 	}
@@ -83,7 +83,7 @@ func (game *Game) handleReloadKeypress() {
 		newCamera := InitCamera(game, newPlayer)
 		game.Camera = &newCamera
 
-		level := InitLevelFromDirectory(game, textures, "./resources/levels/home")
+		level := InitWorldFromDirectory(game, textures, "./resources/levels/home")
 		game.Level = &level
 	}
 }

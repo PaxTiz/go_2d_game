@@ -1,18 +1,10 @@
 # X Y texture solid layer
 
-# House
-9 7 home_roof_wood_top_left_corner 0 11
-10 7 home_roof_wood_top_right_corner 0 11
-9 8 home_roof_wood_left 1 11
-10 8 home_roof_wood_right 1 11
-9 9 home_roof_wood_bottom_left_corner 1 12
-10 9 home_roof_wood_bottom_right_corner 1 12
-9 9 home_wall_white_full 1 11
-10 9 home_wall_white_full 1 11
-9 10 home_wall_white_bottom_left_corner 1 8
-9 10 door_rounded_black_background_left 1 9
-10 10 door_rounded_black_background_right 1 9
-10 10 home_wall_white_bottom_right_corner 1 8
+# House 1
+9 8 model#house_1 -1 10
+
+# House 2
+16 10 model#house_1 -1 10
 
 0 0 dirt_1 1 1
 1 0 dirt_2 1 1
