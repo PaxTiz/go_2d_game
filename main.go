@@ -2,7 +2,7 @@ package main
 
 import (
 	"os"
-	"vcernuta/raylib/core/state"
+	"vcernuta/raylib/core/game"
 	"vcernuta/raylib/utils"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
@@ -22,17 +22,17 @@ func main() {
 
 	keyboardLayout := utils.InitKeyboardLayoutAzerty()
 
-	state := state.InitState(keyboardLayout, debug)
-	defer state.Textures.Unload()
+	game := game.InitGame(keyboardLayout, debug)
+	defer game.Textures.Unload()
 
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()
-		rl.BeginMode2D(state.Camera.Camera)
+		rl.BeginMode2D(game.Camera.Camera)
 
 		rl.ClearBackground(rl.Black)
 
-		state.HandleKeyboardEvents()
-		state.Draw()
+		game.HandleKeyboardEvents()
+		game.Draw()
 
 		rl.EndMode2D()
 		rl.EndDrawing()

@@ -1,4 +1,4 @@
-package tiles
+package loader
 
 import (
 	"log"
